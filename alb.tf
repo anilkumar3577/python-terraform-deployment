@@ -23,15 +23,6 @@ resource "aws_lb_target_group_attachment" "external-elb1" {
   ]
 }
 
-resource "aws_lb_target_group_attachment" "external-elb2" {
-  target_group_arn = aws_lb_target_group.external-elb.arn
-  target_id        = aws_instance.mario-ec2.id
-  port             = 80
-
-  depends_on = [
-    aws_instance.mario-ec2,
-  ]
-}
 
 resource "aws_lb_listener" "external-elb" {
   load_balancer_arn = aws_lb.external-elb.arn
