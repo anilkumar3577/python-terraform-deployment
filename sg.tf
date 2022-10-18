@@ -9,6 +9,20 @@ resource "aws_security_group" "tf-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+   # HTTP access from anywhere 
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   # HTTP access from anywhere 
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   # HTTPS access from anywhere 
   ingress {
     from_port   = 443
