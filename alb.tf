@@ -1,4 +1,4 @@
-resource "aws_lb" "external-elb" {
+resource "aws_lb" "tf-alb" {
   name               = "TF-LB"
   internal           = false
   load_balancer_type = "application"
@@ -6,7 +6,7 @@ resource "aws_lb" "external-elb" {
   subnets            = [aws_subnet.tf-pub-sn-1.id, aws_subnet.tf-pub-sn-2.id]
 }
 
-resource "aws_lb_target_group" "external-elb" {
+resource "aws_lb_target_group" "tf-tg" {
   name     = "TF-TG"
   port     = 80
   protocol = "HTTP"
@@ -14,7 +14,7 @@ resource "aws_lb_target_group" "external-elb" {
 }
 
 resource "aws_lb_target_group_attachment" "external-elb1" {
-  target_group_arn = aws_lb_target_group.external-elb.arn
+  target_group_arn = aws_lb_target_group.tf-tg.arn
   target_id        = aws_instance.CC-ec2.id
   port             = 80
 
@@ -24,13 +24,13 @@ resource "aws_lb_target_group_attachment" "external-elb1" {
 }
 
 
-resource "aws_lb_listener" "external-elb" {
-  load_balancer_arn = aws_lb.external-elb.arn
+resource "aws_lb_listener" "tf-list" {
+  load_balancer_arn = aws_lb.tf-alb.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.external-elb.arn
+    target_group_arn = aws_lb_target_group.tf-tg.arn
   }
 }

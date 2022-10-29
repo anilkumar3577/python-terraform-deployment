@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo yum update -y
 sudo yum -y install git
-sudo yum -y istall httpd
-sudo systemctl start httpd
-sudo systemctl enable httpd
-git clone  /var/www/html/
+git clone https://github.com/anilkumar3577/python7-USA-housing.git
+cd python7-USA-housing
+pip3 install -r requirements.txt
+screen -m -d python3 app.py
